@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WEBVR - Virtual Tour FILKOM UB - Junction</title>
+
+    <script src="https://realitas.id/VRTour/aframe-master.js"></script>
+    <script src="https://realitas.id/VRTour/aframe-href-component.js"></script>
+
+    <script>
+        AFRAME.registerComponent('info-panel-mode', {
+            init: function () {
+                var infoBtn = this.el.querySelector('#info_btn');
+                var infoPanel = this.el.querySelector('#info_panel');
+                var closeBtn = this.el.querySelector('#close_btn');
+
+                infoBtn.addEventListener('click', function () {
+                    infoPanel.setAttribute('visible', 'true');
+                });
+
+                closeBtn.addEventListener('click', function () {
+                    infoPanel.setAttribute('visible', 'false');
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <a-scene info-panel-mode>
+
+        <a-assets>
+            <img id="bg" src="skybox/JC.JPG"> 
+            <img id="arrow" src="assets/arrow.png">
+        </a-assets>
+
+        <a-entity position="0 0 0" rotation="0 90 0">
+            <a-camera id="camera"
+                      look-controls
+                      wasd-controls-enabled="false">
+
+                <a-entity id="cursor"
+                    cursor="fuse: true; fuseTimeout: 1500"
+                    position="0 0 -1"
+                    geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+                    material="color: white; shader: flat"
+
+                    animation__fusing="property: geometry.radiusOuter; from: 0.050; to: 0.010; startEvents: fusing; easing: easeInQuad; dur: 1000"
+                    animation__fusing2="property: geometry.radiusInner; from: 0.050; to: 0.005; startEvents: fusing; easing: easeInQuad; dur: 1000">
+                </a-entity>
+
+            </a-camera>
+        </a-entity>
+
+        <a-sky src="#bg"></a-sky>
+
+        <a-entity id="nav-to-f1" 
+                  position="-5 0 0" 
+                  rotation="-90 90 0">
+            <a-image src="#arrow" 
+                      transparent="true" 
+                      href="f1.html">
+            </a-image>
+            <a-text font="kelsonsans" width="6" align="center" value="F Lantai 1" position="0.1 1.3 0.4" rotation="90 0 0"></a-text>
+        </a-entity>
+
+        <a-entity id="nav-to-g1" position="5 0 0" rotation="-90 -90 0">
+            <a-image src="#arrow" transparent="true" href="g1.html"></a-image>
+            <a-text font="kelsonsans" width="6" align="center" value="G Lantai 1" position="0 1.3 0.3" rotation="90 0 0"></a-text>
+        </a-entity>
+
+        <a-entity id="nav-to-gkm" position="0 0 5" rotation="-90 180 0">
+            <a-image src="#arrow" transparent="true" href="musholla.html"></a-image>
+            <a-text font="kelsonsans" width="6" align="center" value="Mushola" position="0 1.3 0.3" rotation="90 0 0"></a-text>
+        </a-entity>
+
+
+        <a-entity position="2 1.5 -3" rotation="0 -30 0">
+            <a-circle id="info_btn" color="#3366cc" radius="0.3">
+                <a-text value="i" align="center" color="white" width="4" position="0 0 0.01"></a-text>
+            </a-circle>
+            <a-text value="Info Lokasi" align="center" width="3" position="0 -0.5 0"></a-text>
+        </a-entity>
+
+        <a-entity id="info_panel" visible="false" position="0 1.6 -2">
+            
+            <a-plane color="black" opacity="0.8" width="2.5" height="2"></a-plane>
+
+            <a-text value="Junction FILKOM\n\nJunction adalah koridor strategis yang terletak di antara Gedung F dan Gedung G. Area ini menjadi tempat favorit mahasiswa untuk belajar, berdiskusi, dan bersantai karena suasananya yang sejuk (fresh air). Fasilitas di tempat ini sangat lengkap untuk mendukung kegiatan akademik, meliputi ketersediaan meja dan kursi, stopkontak yang banyak untuk mengisi daya laptop/HP, serta kran air minum gratis. Area ini biasanya paling ramai dikunjungi pada pukul 11.00 hingga 15.00."
+                    align="center" width="2" position="0 0.1 0.01">
+            </a-text>
+
+            <a-entity id="close_btn" position="0 -0.75 0.02">
+                <a-plane color="#cc3333" width="0.8" height="0.3"></a-plane>
+                <a-text value="TUTUP" align="center" width="2" z-offset="0.01"></a-text>
+            </a-entity>
+
+        </a-entity>
+
+    </a-scene>
+
+</body>
+</html>
